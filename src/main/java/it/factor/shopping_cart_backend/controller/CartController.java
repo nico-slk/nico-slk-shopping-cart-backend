@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -15,6 +16,11 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<Cart>> getCart(@PathVariable UUID userId) {
+        return ResponseEntity.ok(cartService.getCartsByUserId(userId));
+    }
 
     @PostMapping("/")
     public ResponseEntity<Cart> addCart(@RequestBody Cart cart) {
