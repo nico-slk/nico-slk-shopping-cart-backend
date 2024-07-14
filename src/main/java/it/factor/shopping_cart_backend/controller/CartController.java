@@ -1,7 +1,6 @@
 package it.factor.shopping_cart_backend.controller;
 
 import it.factor.shopping_cart_backend.model.Cart;
-import it.factor.shopping_cart_backend.repository.CartRepository;
 import it.factor.shopping_cart_backend.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

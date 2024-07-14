@@ -1,5 +1,6 @@
 package it.factor.shopping_cart_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d/M/yyyy, HH:mm:ss")
     @Column(name = "date")
     private LocalDateTime date;
 
