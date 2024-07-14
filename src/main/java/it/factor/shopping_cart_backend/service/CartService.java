@@ -15,6 +15,10 @@ public class CartService {
     @Autowired
     private CartRepository cartRepository;
 
+    public List<Cart> getCartsByUserId(UUID userId) {
+        return cartRepository.findAllByUserId(userId);
+    }
+
     public Cart addCart(Cart cart) {
         List<Product> products = cart.getProductList();
         Double total = 0.0;
