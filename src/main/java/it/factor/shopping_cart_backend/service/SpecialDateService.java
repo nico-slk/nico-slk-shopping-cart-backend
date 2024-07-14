@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Service
 public class SpecialDateService {
@@ -18,10 +19,8 @@ public class SpecialDateService {
     }
 
     public SpecialDate addSpecialDate(SpecialDate specialDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy, HH:mm:ss");
-
-        LocalDateTime startDate = LocalDateTime.parse(specialDate.getStartDate().toString(), formatter);
-        LocalDateTime endDate = LocalDateTime.parse(specialDate.getStartDate().toString(), formatter);
+        LocalDateTime startDate = specialDate.getStartDate();
+        LocalDateTime endDate = specialDate.getStartDate().plusMonths(1);
 
         specialDate.setStartDate(startDate);
         specialDate.setEndDate(endDate);
