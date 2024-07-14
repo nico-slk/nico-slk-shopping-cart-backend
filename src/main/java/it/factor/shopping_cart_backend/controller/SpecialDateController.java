@@ -28,7 +28,7 @@ public class SpecialDateController {
         return ResponseEntity.ok(specialDateService.getSpecialDateByStartDate(date));
     }
 
-    @PostMapping("/{startDate}")
+    @PostMapping("/")
     public ResponseEntity<SpecialDate> addSpecialDate(@RequestBody SpecialDate specialDate) {
         return ResponseEntity.ok(specialDateService.addSpecialDate(specialDate));
     }
