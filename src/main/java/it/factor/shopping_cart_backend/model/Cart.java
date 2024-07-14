@@ -24,6 +24,9 @@ public class Cart {
     @Column(name = "date")
     private LocalDateTime date;
 
+    @Column(name = "bonification")
+    private Double bonification = 0.0;
+
     @Column(name = "total_spended")
     private Double totalSpended;
 
