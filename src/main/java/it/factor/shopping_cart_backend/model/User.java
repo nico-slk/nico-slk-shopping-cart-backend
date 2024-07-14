@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,6 +26,12 @@ public class User {
 
     @Column(name = "vip")
     private boolean isVip;
+
+    @Column(name = "total_spend_month")
+    private Double totalSpendMonth;
+
+    @Column(name = "last_buy_date")
+    private LocalDateTime lastBuyDate;
 
     @OneToMany(mappedBy = "user")
     private List<Cart> cartList;
