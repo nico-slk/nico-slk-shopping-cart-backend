@@ -21,6 +21,9 @@ public class CartService {
         for (Product product : products) {
             total = total + product.getPrice();
         }
+        if (cart.getBonification() > 0) {
+            total = total - cart.getBonification();
+        }
         cart.setTotalSpended(total);
         return cartRepository.save(cart);
     }
