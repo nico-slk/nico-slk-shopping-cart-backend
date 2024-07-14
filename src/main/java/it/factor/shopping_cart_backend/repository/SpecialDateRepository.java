@@ -9,5 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface SpecialDateRepository extends JpaRepository<SpecialDate, UUID> {
-    SpecialDate findByStartDate(LocalDateTime startDate);
+
+    SpecialDate findAllByStartDateBeforeAndEndDateAfter(LocalDateTime startDate, LocalDateTime endDate);
 }

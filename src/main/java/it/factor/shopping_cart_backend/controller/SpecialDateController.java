@@ -19,13 +19,10 @@ public class SpecialDateController {
     @Autowired
     private SpecialDateService specialDateService;
 
-    @GetMapping("/{startDate}")
-    public ResponseEntity<SpecialDate> getSpecialDate(@PathVariable String startDate) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy, HH:mm:ss");
-        LocalDateTime date = LocalDateTime.parse(startDate, formatter);
-
-        return ResponseEntity.ok(specialDateService.getSpecialDateByStartDate(date));
+    @GetMapping("/")
+    public ResponseEntity<SpecialDate> getSpecialDate() {
+        LocalDateTime now = LocalDateTime.now();
+        return ResponseEntity.ok(specialDateService.getAllSpecialDates(now));
     }
 
     @PostMapping("/")

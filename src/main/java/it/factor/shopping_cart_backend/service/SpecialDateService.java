@@ -6,16 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 @Service
 public class SpecialDateService {
     @Autowired
     private SpecialDateRepository specialDateRepository;
 
-    public SpecialDate getSpecialDateByStartDate(LocalDateTime startDate) {
-        return specialDateRepository.findByStartDate(startDate);
+    public SpecialDate getAllSpecialDates(LocalDateTime now) {
+        return specialDateRepository.findAllByStartDateBeforeAndEndDateAfter(now, now);
     }
 
     public SpecialDate addSpecialDate(SpecialDate specialDate) {
