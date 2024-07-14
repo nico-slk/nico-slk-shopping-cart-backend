@@ -6,6 +6,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -14,6 +15,21 @@ public class UserService {
     private UserRepository userRepository;
 
     public User getUser(UUID userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+
+        LocalDateTime lastBuy = user.getLastBuyDate();
+        LocalDateTime lastBuyMoth = user.getLastBuyDate().plusMonths(1);
+        LocalDateTime now = LocalDateTime.now();
+
+        Boolean isStillVIP = lastBuy.isBefore(now) && lastBuyMoth.isAfter(now);
+
+        user.setVip(isStillVIP);
+
+        if (user.getTotalSpendMonth() > 10000) {
+            user.setVip(true);
+        }
+
+        userRepository.save(user);
+        return user;
     }
 }
