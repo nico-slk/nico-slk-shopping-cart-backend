@@ -1,11 +1,10 @@
 package it.factor.shopping_cart_backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,12 +29,19 @@ public class Cart {
     private Double bonification = 0.0;
 
     @Column(name = "total_spended")
-    private Double totalSpended;
+    private Double totalSpended = 0.0;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> productList;
+    @ManyToMany
+    @JoinTable(
+            name = "cart_products",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    @JsonManagedReference
+    private List<Product> products;
 }

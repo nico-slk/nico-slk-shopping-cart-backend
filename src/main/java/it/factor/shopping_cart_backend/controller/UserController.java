@@ -1,5 +1,6 @@
 package it.factor.shopping_cart_backend.controller;
 
+import it.factor.shopping_cart_backend.dto.UserDTO;
 import it.factor.shopping_cart_backend.model.User;
 import it.factor.shopping_cart_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getUser(userId));
     }
 
-    @PostMapping("/prod")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.createUser(user));
+    @PostMapping(consumes = "application/json", produces = "application/json", path = "/prod")
+    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(userService.createUser(userDTO));
     }
 
 }

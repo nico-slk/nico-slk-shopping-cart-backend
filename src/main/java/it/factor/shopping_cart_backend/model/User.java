@@ -1,6 +1,7 @@
 package it.factor.shopping_cart_backend.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,16 +26,17 @@ public class User {
     private String username;
 
     @Column(name = "vip", nullable = false)
-    private boolean isVip;
+    private boolean isVip = false;
 
     @Column(name = "total_spend_month")
-    private Double totalSpendMonth;
+    private Double totalSpendMonth = 0.0;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d/M/yyyy, HH:mm:ss")
     @Column(name = "last_buy_date")
-    private LocalDateTime lastBuyDate;
+    private LocalDateTime lastBuyDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cart> cartList = new ArrayList<>();
+    @JsonManagedReference
+    private List<Cart> carts = new ArrayList<>();
 
 }

@@ -1,5 +1,6 @@
 package it.factor.shopping_cart_backend.service;
 
+import it.factor.shopping_cart_backend.dto.UserDTO;
 import it.factor.shopping_cart_backend.model.User;
 import it.factor.shopping_cart_backend.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -34,7 +35,10 @@ public class UserService {
         return user;
     }
 
-    public User createUser(User user) {
+    public User createUser(UserDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setVip(userDTO.isVip());
         return userRepository.save(user);
     }
 
