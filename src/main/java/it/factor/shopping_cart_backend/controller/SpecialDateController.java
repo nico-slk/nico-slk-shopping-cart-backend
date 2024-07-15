@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping("/date")
+@CrossOrigin(origins = "*")
 public class SpecialDateController {
 
     @Autowired
