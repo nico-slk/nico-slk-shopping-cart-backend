@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -42,19 +43,21 @@ public class CartService {
                         .orElseThrow(() -> new RuntimeException("Product not found")))
                 .collect(Collectors.toList());
 
-        List<ProductDTO> productDTOs = cartDTO.getProductList();
-//        Integer quantity = 0;
+        LocalDateTime lastBuy = user.getLastBuyDate();
+        LocalDateTime lastBuyMoth = user.getLastBuyDate().plusMonths(1);
+        LocalDateTime now = LocalDateTime.now();
 
-        for (ProductDTO productDTO : productDTOs) {
-//            quantity = productDTO.getQuantity();
-            for (Product product : products) {
-//                product.setQuantity(quantity);
-//                total = total + product.getPrice() * quantity;
-                total = total + product.getPrice();
-            }
+        Boolean isStillVIP = lastBuy.isBefore(now) && lastBuyMoth.isAfter(now);
+
+        user.setVip(isStillVIP);
+
+        for (Product product : products) {
+            total = total + product.getPrice();
         }
 
-
+        if (total > 10000) {
+            user.setVip(true);
+        }
 
         user.setTotalSpendMonth(user.getTotalSpendMonth() + total);
         user.setLastBuyDate(cartDTO.getDate());
