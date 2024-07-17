@@ -13,5 +13,5 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserDTO {
     private String username;
-    private boolean isVip = false;
+    private boolean isVip;
 }

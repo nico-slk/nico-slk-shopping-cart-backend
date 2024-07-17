@@ -27,10 +27,4 @@ public class CartController {
     public ResponseEntity<Cart> addCart(@RequestBody CartDTO cartDTO) {
         return ResponseEntity.ok(cartService.addCart(cartDTO));
     }
-
-    @DeleteMapping("/{cartId}/product/{productId}")
-    public ResponseEntity<String> deleteCart(@PathVariable("cartId") UUID cartId, @PathVariable("productId") UUID productId) {
-        cartService.deleteProduct(cartId, productId);
-        return ResponseEntity.ok("Producto eliminado con éxito del carrito.");
-    }
 }

@@ -28,6 +28,9 @@ public class Product {
     @Column(nullable = false)
     private Double price;
 
+    @Column(name = "image")
+    private String image;
+
     @ManyToMany(mappedBy = "products")
     @JsonBackReference
     private List<Cart> carts;

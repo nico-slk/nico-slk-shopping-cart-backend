@@ -26,7 +26,7 @@ public class User {
     private String username;
 
     @Column(name = "vip", nullable = false)
-    private boolean isVip = false;
+    private boolean isVip;
 
     @Column(name = "total_spend_month")
     private Double totalSpendMonth = 0.0;

@@ -1,6 +1,7 @@
 package it.factor.shopping_cart_backend.service;
 
 import it.factor.shopping_cart_backend.dto.CartDTO;
+import it.factor.shopping_cart_backend.dto.ProductDTO;
 import it.factor.shopping_cart_backend.model.Cart;
 import it.factor.shopping_cart_backend.model.Product;
 import it.factor.shopping_cart_backend.model.User;
@@ -41,9 +42,19 @@ public class CartService {
                         .orElseThrow(() -> new RuntimeException("Product not found")))
                 .collect(Collectors.toList());
 
-        for (Product product : products) {
-            total = total + product.getPrice();
+        List<ProductDTO> productDTOs = cartDTO.getProductList();
+//        Integer quantity = 0;
+
+        for (ProductDTO productDTO : productDTOs) {
+//            quantity = productDTO.getQuantity();
+            for (Product product : products) {
+//                product.setQuantity(quantity);
+//                total = total + product.getPrice() * quantity;
+                total = total + product.getPrice();
+            }
         }
+
+
 
         user.setTotalSpendMonth(user.getTotalSpendMonth() + total);
         user.setLastBuyDate(cartDTO.getDate());
@@ -55,15 +66,6 @@ public class CartService {
         cart.setUser(user);
         cartRepository.save(cart);
         return cart;
-    }
-
-    public void deleteProduct(UUID cartId, UUID productId) {
-        Cart cart = cartRepository.findById(cartId)
-                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
-        List<Product> products = cart.getProducts();
-        Product productToDelete = products.stream().filter(product -> product.getId().equals(productId)).findFirst().get();
-        cart.getProducts().remove(productToDelete);
-        cartRepository.save(cart);
     }
 
     public List<Cart> getAllCarts() {

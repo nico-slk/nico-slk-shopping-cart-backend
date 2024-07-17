@@ -22,9 +22,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<User> getUser(@PathVariable UUID userId) {
-        return ResponseEntity.ok(userService.getUser(userId));
+    @GetMapping("/{name}")
+    public ResponseEntity<User> getUser(@PathVariable String name) {
+        return ResponseEntity.ok(userService.getUser(name));
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json", path = "/prod")
