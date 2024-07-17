@@ -20,14 +20,6 @@ public class UserService {
         User user = userRepository.findByUsername(name)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
 
-        LocalDateTime lastBuy = user.getLastBuyDate();
-        LocalDateTime lastBuyMoth = user.getLastBuyDate().plusMonths(1);
-        LocalDateTime now = LocalDateTime.now();
-
-//        Boolean isStillVIP = lastBuy.isBefore(now) && lastBuyMoth.isAfter(now);
-//
-//        user.setVip(isStillVIP);
-
         if (user.getTotalSpendMonth() > 10000) {
             user.setVip(true);
         }
